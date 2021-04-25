@@ -22,8 +22,7 @@ cd /app
 php bin/magento sampledata:deploy
 
 ## Install Magento 2
-### make sure elasticsearch is running
--WARNING: Sampledata will be installed, remove --use-sample-data if not needed:-
+### WARNING: Sampledata will be installed, remove --use-sample-data if not needed:
 php bin/magento setup:install --admin-firstname=thom --admin-lastname=Veldpaus --admin-email=thom@example.com  --admin-user=admin --admin-password='Admin123'  --base-url=https://local.domain.com --base-url-secure=https://local.domain.com --backend-frontname=admin --db-host=mysql --db-name=magento --db-user=root --db-password=root  --use-rewrites=1 --language=nl_NL\ --currency=EUR --timezone=Europe/Amsterdam --use-secure-admin=1 --admin-use-security-key=1 --session-save=files --use-sample-data
 
 
