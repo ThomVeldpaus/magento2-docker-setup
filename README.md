@@ -22,10 +22,11 @@ cd /app
 php bin/magento sampledata:deploy  
 
 ## pre install filepermissions
-cd app
+cd app  
 find var generated vendor pub/static pub/media app/etc -type f -exec chmod u+w {} +  
 find var generated vendor pub/static pub/media app/etc -type d -exec chmod u+w {} +  
-chmod u+x bin/magento
+chown -R thom:www-data .  
+chmod u+x bin/magento  
 
 ## Install Magento 2
 ### WARNING: Sampledata will be installed, remove --use-sample-data if not needed:
@@ -37,5 +38,5 @@ cd app
 find . -type f -exec chmod 644 {} \;  
 find . -type d -exec chmod 755 {} \;  
 chmod 644 ./app/etc/*.xml  
-chown -R www-data:www-data .  
+chown -R thom:www-data .  
 chmod u+x bin/magento  
