@@ -10,7 +10,7 @@ RUN apt update \
 # && apt update \
 # && apt install -y elasticsearch
 
-RUN adduser thom --disabled-password
+RUN adduser thom --disabled-password && usermod -a -G www-data thom
 
 RUN cd /home/thom \
 && su -c "wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.12.0-linux-x86_64.tar.gz" thom \

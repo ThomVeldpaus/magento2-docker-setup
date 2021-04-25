@@ -21,8 +21,15 @@ cd ~/elasticsearch-7.12.0
 cd /app  
 php bin/magento sampledata:deploy  
 
+## pre install filepermissions
+cd app
+find var generated vendor pub/static pub/media app/etc -type f -exec chmod u+w {} +  
+find var generated vendor pub/static pub/media app/etc -type d -exec chmod u+w {} +  
+chmod u+x bin/magento
+
 ## Install Magento 2
 ### WARNING: Sampledata will be installed, remove --use-sample-data if not needed:
+su thom
 php bin/magento setup:install --admin-firstname=thom --admin-lastname=Veldpaus --admin-email=thom@example.com  --admin-user=admin --admin-password='Admin123'  --base-url=https://local.domain.com --base-url-secure=https://local.domain.com --backend-frontname=admin --db-host=mysql --db-name=magento --db-user=root --db-password=root  --use-rewrites=1 --language=nl_NL --currency=EUR --timezone=Europe/Amsterdam --use-secure-admin=1 --admin-use-security-key=1 --session-save=files --use-sample-data  
 
 ## Set all filepermissions and webserver user group
