@@ -1,60 +1,43 @@
 version: '3'
-
-networks:
-  nginx-php74-mysql8-node:
-
 services:
-  # nginx
-  nginx-service:
-    image: nginx:stable-alpine
-    container_name: nginx-container
-    ports:
-      - "8080:80"
-    volumes:
-      - ./app:/var/www/project
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-    depends_on:
-      - php74-service
-      - mysql8-service
-    networks:
-      - nginx-php74-mysql8-node
+    web:
+        build:
+            context: .
+            dockerfile: ./web/Dockerfile
+        container_name: web
+        restart: always
+        user: root
+        environment:
+          - WEB_ALIAS_DOMAIN=local.domain.com
+          - WEB_DOCUMENT_ROOT=/app/pub
+          - PHP_DATE_TIMEZONE=EST
+          - PHP_DISPLAY_ERRORS=1
+          - PHP_MEMORY_LIMIT=4096M
+          - PHP_MAX_EXECUTION_TIME=300
+          - PHP_POST_MAX_SIZE=500M
+          - PHP_UPLOAD_MAX_FILESIZE=1024M
+        volumes:
+          - ./:/app:cached
+        ports:
+          - "80:80"
+          - "443:443"
+          - "32823:22"
+          - "9200:9200"
+          - "9300:9300"
+        links:
+          - mysql
+    mysql:
+        image: mariadb:10.4
+        container_name: mysql
+        restart: always
+        ports:
+          - "3306:3306"
+        environment:
+          - MYSQL_ROOT_PASSWORD=root
+          - MYSQL_DATABASE=magento
+        volumes:
+          - db-data:/var/lib/mysql
 
-  # php
-  php74-service:
-    build:
-      context: .
-      dockerfile: ./php/Dockerfile
-    container_name: php74-container
-    ports:
-    - "9000:9000"
-    volumes:
-      - ./app:/var/www/project
-    networks:
-      - nginx-php74-mysql8-node
-
-  # mysql
-  mysql8-service:
-    image: mysql:8
-    container_name: mysql8-container
-    ports:
-    - "3306:3306"
-    volumes:
-    - ./mysql:/var/lib/mysql
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always # always restart unless stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_PASSWORD: root
-      MYSQL_DATABASE: Symfony
-    networks:
-      - nginx-php74-mysql8-node
-
-  # node
-  node-service:
-    image: node:latest
-    container_name: node-container
-    working_dir: /var/www/project
-    volumes:
-    - ./app:/var/www/project
-    networks:
-      - nginx-php74-mysql8-node
+volumes:
+    db-data:
+        external: false
