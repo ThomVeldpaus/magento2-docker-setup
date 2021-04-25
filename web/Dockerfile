@@ -5,11 +5,6 @@ RUN apt update \
 && apt install -y nano curl default-jre \
 && apt install -y default-jdk
 
-# RUN curl -fsSL https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add - \
-# && echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | tee -a /etc/apt/sources.list.d/elastic-7.x.list \
-# && apt update \
-# && apt install -y elasticsearch
-
 RUN adduser thom --disabled-password && usermod -a -G www-data thom
 
 RUN cd /home/thom \
