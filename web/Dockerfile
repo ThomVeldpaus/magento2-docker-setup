@@ -19,3 +19,5 @@ RUN cd /home/thom \
 && sed -i '/cluster\.name/s/^# *//' /home/thom/elasticsearch-7.12.0/config/elasticsearch.yml \
 && sed -i '/node\.name/s/^# *//' /home/thom/elasticsearch-7.12.0/config/elasticsearch.yml \
 && sed -i '/http\.port/s/^# *//' /home/thom/elasticsearch-7.12.0/config/elasticsearch.yml
+
+# TODO: try to run apache2 as thom
