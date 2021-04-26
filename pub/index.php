@@ -6,6 +6,9 @@
  * See COPYING.txt for license details.
  */
 
+//phpinfo();
+//die;
+
 use Magento\Framework\App\Bootstrap;
 
 try {

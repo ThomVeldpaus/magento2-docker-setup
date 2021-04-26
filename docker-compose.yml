@@ -6,7 +6,7 @@ services:
             dockerfile: ./web/Dockerfile
         container_name: web
         restart: always
-        user: root
+        user: root # TODO: change back to thom
         environment:
           - WEB_ALIAS_DOMAIN=local.domain.com
           - WEB_DOCUMENT_ROOT=/app/pub
